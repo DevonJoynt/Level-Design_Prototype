@@ -5,10 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private int speed;
+    [SerializeField] private Animator anim;
+    [SerializeField] private SpriteRenderer playerSprite;
     
     private PlayerControls playerControls;
     private Rigidbody rb;
     private Vector3 movement;
+
+    private const string IS_RUN_PARAM = "IsRun";
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -27,9 +31,18 @@ public class PlayerController : MonoBehaviour
         float x = playerControls.Player.Move.ReadValue<Vector2>().x;
         float z = playerControls.Player.Move.ReadValue<Vector2>().y;
 
-        Debug.Log(x + "," + z);
-
         movement = new Vector3(x,0,z).normalized;
+
+        anim.SetBool(IS_RUN_PARAM, movement!=Vector3.zero);
+
+        if(x!= 0 && x<0)
+        {
+            playerSprite.flipX = true;
+        }
+        if(x!= 0 && x>0)
+        {
+            playerSprite.flipX = false;
+        }
     }
     private void FixedUpdate()
     {
