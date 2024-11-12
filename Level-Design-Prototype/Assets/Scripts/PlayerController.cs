@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int speed;
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer playerSprite;
-    
+
     private PlayerControls playerControls;
     private Rigidbody rb;
     private Vector3 movement;
